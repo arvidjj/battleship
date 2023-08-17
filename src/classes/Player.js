@@ -9,7 +9,6 @@ export function createPlayer() {
       do {
         x = Math.floor(Math.random() * gameboard.getSize());
         y = Math.floor(Math.random() * gameboard.getSize());
-        console.log(x + ' ' + y)
       } while (!gameboard.isValidMove(x, y)); 
   
       return gameboard.receiveAttack(x, y);

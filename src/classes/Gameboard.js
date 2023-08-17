@@ -13,10 +13,12 @@ export function createGameboard() {
     function placeShip(ship, x, y, isHorizontal) {
         if (isHorizontal) {
             for (let i = 0; i < ship.getLength(); i++) {
+                console.log("placed ship: " + ship.getId())
                 board[y][x + i] = ship;
             }
         } else {
             for (let i = 0; i < ship.getLength(); i++) {
+                console.log("placed ship: " + ship.getId())
                 board[y + i][x] = ship;
             }
         }
@@ -24,18 +26,17 @@ export function createGameboard() {
     }
 
     function receiveAttack(x, y) {
-        
         //invalid coordinates
         if (x < 0 || x >= boardSize || y < 0 || y >= boardSize) {
             return false;
         }
 
         const target = board[y][x];
-
         //miss
         if (target === null) {
-            
+
             board[y][x] = 'miss';
+            console.log("miss")
             return false;
         }
 
@@ -43,10 +44,24 @@ export function createGameboard() {
         if (typeof target.hit === 'function') {
             target.hit();
             board[y][x] = 'hit';
+            console.log("hit")
             return true;
         }
 
         return false;
+    }
+
+    function getCellContent(x, y) {
+        const cellValue = board[y][x];
+        if (cellValue === null) {
+            return '-'; //return empty symbol
+        } else if (cellValue === 'miss') {
+            return 'X'; //return Miss symbol 
+        } else if (typeof cellValue.isSunk === 'function' && cellValue.isSunk()) {
+            return 'S'; //return Sunk ship symbol 
+        } else {
+            return 'O'; //return Ship symbol 
+        }
     }
 
     function allShipsSunk() {
@@ -57,11 +72,24 @@ export function createGameboard() {
         return board[y][x] === null;
     }
 
+
+    function printBoard() {
+        for (let y = 0; y < boardSize; y++) {
+            let row = '';
+            for (let x = 0; x < boardSize; x++) {
+                row += getCellContent(x, y) + ' ';
+            }
+            console.log(row);
+        }
+    }
+
     return {
         getSize,
         placeShip,
         receiveAttack,
         allShipsSunk,
         isValidMove,
+        getCellContent,
+        printBoard,
     };
 }

@@ -1,4 +1,4 @@
-function createShip(id, length) {
+export function createShip(id, length) {
     let hits = 0;
 
     function getId(){
@@ -24,5 +24,3 @@ function createShip(id, length) {
         isSunk,
     };
 }
-
-module.exports = createShip;

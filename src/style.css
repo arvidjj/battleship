@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #303030;
+    color: white;
+}
+
+.game-container {
+    display: flex;
+    gap:100px;
+    margin: 0 auto;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(10, 30px); /*this for the board grid*/
+    grid-gap: 2px;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #333;
+    font-size: 1.5rem;
+    font-weight: bold;
+    user-select: none;
+    cursor: pointer;
+}
+
+.player-board {
+    border-right: 1px solid #333;
+    padding-right: 10px;
+}
+
+.enemy-board {
+    padding-left: 10px;
+}

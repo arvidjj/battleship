@@ -11,6 +11,10 @@ module.exports = {
                 exclude: /node_modules/,
                 use: ['babel-loader'],
             },
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
+            },
         ],
     },
     devServer: {
@@ -19,6 +23,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Battleship',
+            template: 'src/index.html'
         }),
     ],
     output: {
