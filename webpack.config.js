@@ -6,13 +6,13 @@ module.exports = {
     entry: './src/index.js',
     module: {
         rules: [
-          {
-            test: /\.jsx?$/,
-            exclude: ['node_modules'],
-            use: ['babel-loader'],
-          },
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                use: ['babel-loader'],
+            },
         ],
-      },
+    },
     devServer: {
         static: './dist',
     },

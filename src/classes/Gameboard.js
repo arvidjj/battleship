@@ -1,10 +1,14 @@
 //the ships get stored in each point in the matrix (arrray of arrays)
 //so a ship instance is just a part of the ship, however, when they get stored in the ships array
 //you can save the hits each ship has
-function createGameboard() {
+export function createGameboard() {
     const boardSize = 10;
     const board = Array.from({ length: boardSize }, () => Array(boardSize).fill(null));
     const ships = [];
+
+    function getSize() {
+        return boardSize;
+    }
 
     function placeShip(ship, x, y, isHorizontal) {
         if (isHorizontal) {
@@ -20,6 +24,7 @@ function createGameboard() {
     }
 
     function receiveAttack(x, y) {
+        
         //invalid coordinates
         if (x < 0 || x >= boardSize || y < 0 || y >= boardSize) {
             return false;
@@ -29,6 +34,7 @@ function createGameboard() {
 
         //miss
         if (target === null) {
+            
             board[y][x] = 'miss';
             return false;
         }
@@ -47,11 +53,15 @@ function createGameboard() {
         return ships.every(ship => ship.isSunk());
     }
 
+    function isValidMove(x, y) {
+        return board[y][x] === null;
+    }
+
     return {
+        getSize,
         placeShip,
         receiveAttack,
         allShipsSunk,
+        isValidMove,
     };
 }
-
-module.exports = createGameboard;
