@@ -18,7 +18,13 @@ module.exports = {
         ],
     },
     devServer: {
-        static: './dist',
+        static: {
+            directory: path.join(__dirname, 'public'),
+        },
+        compress: true,
+        port: 9000,
+        watchFiles: ["src/*.html"],
+        hot: true,
     },
     plugins: [
         new HtmlWebpackPlugin({

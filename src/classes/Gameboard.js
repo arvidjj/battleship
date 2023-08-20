@@ -13,15 +13,16 @@ export function createGameboard() {
     function placeShip(ship, x, y, isHorizontal) {
         if (isHorizontal) {
             for (let i = 0; i < ship.getLength(); i++) {
-                console.log("placed ship: " + ship.getId())
+                console.log(x)
                 board[y][x + i] = ship;
             }
         } else {
             for (let i = 0; i < ship.getLength(); i++) {
-                console.log("placed ship: " + ship.getId())
+                console.log(x)
                 board[y + i][x] = ship;
             }
         }
+        console.log("placed ship: " + ship.getId())
         ships.push(ship);
     }
 
@@ -83,6 +84,48 @@ export function createGameboard() {
         }
     }
 
+    function getShipQuantity() {
+        return ships.length
+    }
+
+    function getShipTotalLength() {
+        let total = 0;
+        ships.forEach(ship => (total += ship.getLength()))
+        return total;
+    }
+
+
+    function canPlaceShip(ship, x, y, isHorizontal) {
+        
+        if (isHorizontal) {
+            
+            if (x + ship.getLength() > this.getSize()) {
+                return false; // Ship would go out of bounds horizontally
+            }
+
+            for (let i = 0; i < ship.getLength(); i++) {
+                console.log(x + " " + y)
+                if (board[y][x + i] !== null) {
+                    return false; // There's already a ship there
+                }
+            }
+        } else {
+            
+            if (y + ship.getLength() > this.getSize()) {
+                return false; // Ship would go out of bounds vertically
+            }
+
+            for (let i = 0; i < ship.getLength(); i++) {
+                if (board[y + i][x] !== null) {
+                    return false; // There's already a ship there
+                }
+            }
+        }
+
+        return true;
+    }
+
+
     return {
         getSize,
         placeShip,
@@ -91,5 +134,8 @@ export function createGameboard() {
         isValidMove,
         getCellContent,
         printBoard,
+        getShipQuantity,
+        getShipTotalLength,
+        canPlaceShip,
     };
 }
