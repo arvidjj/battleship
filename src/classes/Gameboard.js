@@ -54,6 +54,7 @@ export function createGameboard() {
 
     function getCellContent(x, y) {
         const cellValue = board[y][x];
+
         if (cellValue === null) {
             return '-'; //return empty symbol
         } else if (cellValue === 'miss') {
@@ -66,6 +67,15 @@ export function createGameboard() {
     }
 
     function allShipsSunk() {
+        return ships.every(ship => ship.isSunk());
+    }
+
+    function allShipsSunkLoggingTest() {
+        let i = 1;
+        ships.forEach((ship) => {
+            console.log("ship " + i + " " + ship.isSunk());
+            i++;
+        } )
         return ships.every(ship => ship.isSunk());
     }
 
@@ -131,6 +141,7 @@ export function createGameboard() {
         placeShip,
         receiveAttack,
         allShipsSunk,
+        allShipsSunkEnemy: allShipsSunkLoggingTest,
         isValidMove,
         getCellContent,
         printBoard,
